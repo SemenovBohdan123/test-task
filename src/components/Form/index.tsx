@@ -27,6 +27,7 @@ const Form: FC = () => {
       <label>
         Adds N number
         <input
+          className="input-field"
           type="number"
           {...register("n", { required: true, maxLength: 100, minLength: 0 })}
         />
@@ -34,15 +35,22 @@ const Form: FC = () => {
       <label>
         Adds M number
         <input
+          className="input-field"
           type="number"
           {...register("m", { required: true, maxLength: 100, minLength: 0 })}
         />
       </label>
       <label>
         Adds X number
-        <input type="number" {...register("x", { required: true })} />
+        <input
+          className="input-field"
+          type="number"
+          {...register("x", { required: true })}
+        />
       </label>
-      <input defaultValue="generate a new table" type="submit" />
+      <button className="submit-button" type="submit">
+        Generate table
+      </button>
     </form>
   );
 };

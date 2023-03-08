@@ -9,9 +9,6 @@ import "./App.css";
 
 const App: FC = () => {
   const [matrix, setMatrix] = useState<Cell[][]>([]);
-
-  console.log(matrix, "app.js");
-
   return (
     <MatrixContext.Provider value={{ matrix, setMatrix }}>
       <div className="main">
