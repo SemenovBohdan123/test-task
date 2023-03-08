@@ -1,4 +1,4 @@
-const createMatrix = (n: number, m: number) => {
+const createMatrix = (n: number, m: number): Array<Array<Cell>> => {
   const matrix = [];
   let cellId = 1;
   for (let i = 0; i < m; i++) {

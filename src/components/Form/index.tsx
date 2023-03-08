@@ -1,23 +1,25 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 
 import { SubmitHandler, useForm } from "react-hook-form";
+
+import MatrixContext from "../../context/MatrixContext";
 import createMatrix from "../../utils/CreateMatrix";
 
 import "../Form/styles.css";
 
 const Form: FC = () => {
+  const { matrix, setMatrix } = useContext(MatrixContext);
+
   const {
     register,
     handleSubmit,
     // formState: { errors },
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    const { n, m, x } = data;
-
+  const onSubmit: SubmitHandler<Inputs> = ({ n, m, x }) => {
     const newGenerateMatrix = createMatrix(n, m);
 
-    console.log(newGenerateMatrix);
+    setMatrix(newGenerateMatrix);
   };
 
   return (
