@@ -1,18 +1,29 @@
-import { FC, useContext } from "react";
+import { FC, useContext, useState } from "react";
 
 import averageColumnValues from "../../utils/averageColumnValues";
 import calculateSumOfCell from "../../utils/calculateSumOfCell";
 
-import TableCell from "../common/TableCell";
-
 import MatrixContext from "../../context/MatrixContext";
 
 import "../Table/styles.css";
+import getClosestCells from "../../utils/getClosestCells";
 
 const Table: FC = () => {
   const { matrix, setMatrix } = useContext(MatrixContext);
 
+  const [hoveredCell, setHoveredCell] = useState<Cell | null>(null);
+
   const averageColumnValuesCalculate: number[] = averageColumnValues(matrix);
+
+  const X = 7;
+
+  const handleMouseOver = (cell: Cell) => {
+    setHoveredCell(cell);
+  };
+
+  const handleMouseOut = () => {
+    setHoveredCell(null);
+  };
 
   const incrementCell = (idToFind: number) => {
     const copyMatrix = [...matrix];
@@ -33,7 +44,7 @@ const Table: FC = () => {
         <tr>
           <th>Cell values N = 0</th>
           {matrix[0].map((item) => (
-            <th>Cell values N ={item.id}</th>
+            <th key={item.id}>Cell values N ={item.id}</th>
           ))}
           <th>Sum values</th>
         </tr>
@@ -43,11 +54,25 @@ const Table: FC = () => {
       ) : (
         <tbody>
           {matrix.map((cellArray: Cell[], index: number) => (
-            <tr>
+            <tr key={index}>
               {`Cell Value M = ${index + 1}`}
               <>
                 {cellArray.map((tableCell: Cell) => (
-                  <th onClick={() => incrementCell(tableCell.id)}>
+                  <th
+                    style={{
+                      backgroundColor: getClosestCells(
+                        matrix,
+                        hoveredCell,
+                        X
+                      ).some((closestCell) => closestCell.id === tableCell.id)
+                        ? "yellow"
+                        : "white",
+                    }}
+                    key={tableCell.id}
+                    onClick={() => incrementCell(tableCell.id)}
+                    onMouseOver={() => handleMouseOver(tableCell)}
+                    onMouseOut={handleMouseOut}
+                  >
                     {tableCell.amount}
                   </th>
                 ))}
@@ -60,8 +85,8 @@ const Table: FC = () => {
       <tfoot>
         <tr>
           <th>Avarage value</th>
-          {averageColumnValuesCalculate.map((item: number) => (
-            <th>{item}</th>
+          {averageColumnValuesCalculate.map((item: number, index: number) => (
+            <th key={index}>{item}</th>
           ))}
         </tr>
       </tfoot>

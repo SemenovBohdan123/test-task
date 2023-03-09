@@ -16,10 +16,6 @@
   font-weight: 600;
 }
 
-.table tbody tr:nth-child(even) {
-  background-color: #2196f3;
-}
-
 .table tbody tr {
   padding: 12px 15px;
 }
