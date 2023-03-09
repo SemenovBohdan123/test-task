@@ -1,4 +1,4 @@
-const sumObjectsAmount = (array: Array<Cell>) => {
+const sumObjectsAmount = (array: Array<Cell>): number => {
   let sum = 0;
   for (let i = 0; i < array.length; i++) {
     sum += array[i].amount;

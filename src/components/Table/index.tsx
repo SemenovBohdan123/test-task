@@ -12,7 +12,20 @@ import "../Table/styles.css";
 const Table: FC = () => {
   const { matrix, setMatrix } = useContext(MatrixContext);
 
-  const averageColumnValuesCalculate = averageColumnValues(matrix);
+  const averageColumnValuesCalculate: number[] = averageColumnValues(matrix);
+
+  const incrementCell = (idToFind: number) => {
+    const copyMatrix = [...matrix];
+    const foundItem = copyMatrix
+      .find((row) => row.some((item) => item.id === idToFind))
+      ?.find((item) => item.id === idToFind);
+
+    if (foundItem) {
+      foundItem.amount += 1;
+    }
+
+    setMatrix(copyMatrix);
+  };
 
   return (
     <table className="table">
@@ -29,12 +42,14 @@ const Table: FC = () => {
         <></>
       ) : (
         <tbody>
-          {matrix.map((cellArray, index) => (
+          {matrix.map((cellArray: Cell[], index: number) => (
             <tr>
               {`Cell Value M = ${index + 1}`}
               <>
-                {cellArray.map((tableCell) => (
-                  <TableCell>{tableCell.amount}</TableCell>
+                {cellArray.map((tableCell: Cell) => (
+                  <th onClick={() => incrementCell(tableCell.id)}>
+                    {tableCell.amount}
+                  </th>
                 ))}
               </>
               <th>{calculateSumOfCell(cellArray)}</th>
@@ -45,7 +60,7 @@ const Table: FC = () => {
       <tfoot>
         <tr>
           <th>Avarage value</th>
-          {averageColumnValuesCalculate.map((item) => (
+          {averageColumnValuesCalculate.map((item: number) => (
             <th>{item}</th>
           ))}
         </tr>

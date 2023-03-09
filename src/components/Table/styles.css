@@ -24,6 +24,10 @@
   padding: 12px 15px;
 }
 
+.table tbody th {
+  cursor: pointer;
+}
+
 .table-head {
   background-color: #2196f3;
   color: white;
