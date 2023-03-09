@@ -40,67 +40,71 @@ const Table: FC = () => {
   };
 
   return (
-    <table className="table">
-      <thead className="table-head">
-        <tr>
-          <th>Cell values N = 0</th>
-          {matrix[0].map((item) => (
-            <th key={item.id}>Cell values N ={item.id}</th>
-          ))}
-          <th>Sum values</th>
-        </tr>
-      </thead>
-      {matrix.length === 0 ? (
-        <></>
-      ) : (
-        <tbody>
-          {matrix.map((cellArray: Cell[], index: number) => {
-            const rowSum = calculateSumOfCell(cellArray);
+    <div className="container">
+      <table className="table">
+        <thead className="table-head">
+          <tr>
+            <th>Cell values N = 0</th>
+            {matrix[0].map((item) => (
+              <th key={item.id}>Cell values N ={item.id}</th>
+            ))}
+            <th>Sum values</th>
+          </tr>
+        </thead>
+        {matrix.length === 0 ? (
+          <></>
+        ) : (
+          <tbody>
+            {matrix.map((cellArray: Cell[], index: number) => {
+              const rowSum = calculateSumOfCell(cellArray);
 
-            return (
-              <tr key={index}>
-                {`Cell Value M = ${index + 1}`}
-                <>
-                  {cellArray.map((tableCell: Cell) => (
-                    <th
-                      style={{
-                        backgroundColor: getClosestCells(
-                          matrix,
-                          hoveredCell,
-                          X
-                        ).some((closestCell) => closestCell.id === tableCell.id)
-                          ? "yellow"
-                          : "white",
-                      }}
-                      key={tableCell.id}
-                      onClick={() => incrementCell(tableCell.id)}
-                      onMouseOver={() => handleMouseOver(tableCell)}
-                      onMouseOut={handleMouseOut}
-                    >
-                      {hoveredCell && hoveredCell.id === tableCell.id
-                        ? `${tableCell.amount} -> ${getPercent(
-                            tableCell.amount,
-                            rowSum
-                          )}`
-                        : tableCell.amount}
-                    </th>
-                  ))}
-                </>
-                <th>{rowSum}</th>
-              </tr>
-            );
-          })}
-        </tbody>
-      )}
-      <tfoot>
-        <tr>
-          <th>Avarage value</th>
-          {averageColumnValuesCalculate.map((item: number, index: number) => (
-            <th key={index}>{item}</th>
-          ))}
-        </tr>
-      </tfoot>
-    </table>
+              return (
+                <tr key={index}>
+                  {`Cell Value M = ${index + 1}`}
+                  <>
+                    {cellArray.map((tableCell: Cell) => (
+                      <th
+                        style={{
+                          backgroundColor: getClosestCells(
+                            matrix,
+                            hoveredCell,
+                            X
+                          ).some(
+                            (closestCell) => closestCell.id === tableCell.id
+                          )
+                            ? "yellow"
+                            : "white",
+                        }}
+                        key={tableCell.id}
+                        onClick={() => incrementCell(tableCell.id)}
+                        onMouseOver={() => handleMouseOver(tableCell)}
+                        onMouseOut={handleMouseOut}
+                      >
+                        {hoveredCell && hoveredCell.id === tableCell.id
+                          ? `${tableCell.amount} -> ${getPercent(
+                              tableCell.amount,
+                              rowSum
+                            )}`
+                          : tableCell.amount}
+                      </th>
+                    ))}
+                  </>
+                  <th>{rowSum}</th>
+                </tr>
+              );
+            })}
+          </tbody>
+        )}
+        <tfoot style={{}}>
+          <tr>
+            <th>Avarage value</th>
+            {averageColumnValuesCalculate.map((item: number, index: number) => (
+              <th key={index}>{item}</th>
+            ))}
+          </tr>
+        </tfoot>
+      </table>
+    </div>
   );
 };
 
