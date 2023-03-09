@@ -1,15 +1,7 @@
-const sumObjectsAmount = (array: Array<Cell>): number => {
-  let sum = 0;
-  for (let i = 0; i < array.length; i++) {
-    sum += array[i].amount;
-  }
-  return sum;
-};
+const calculateSumOfCell = (array: Array<Cell>): number => {
+  const sumRow = array.reduce((acc, curr) => acc + curr.amount, 0);
 
-const calculateSumOfCell = (cellArray: Array<Cell>) => {
-  const totalAmount = sumObjectsAmount(cellArray);
-
-  return totalAmount;
+  return sumRow;
 };
 
 export default calculateSumOfCell;

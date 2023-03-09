@@ -2,11 +2,12 @@ import { FC, useContext, useState } from "react";
 
 import averageColumnValues from "../../utils/averageColumnValues";
 import calculateSumOfCell from "../../utils/calculateSumOfCell";
+import getPercent from "../../utils/getPercentOfCell";
+import getClosestCells from "../../utils/getClosestCells";
 
 import MatrixContext from "../../context/MatrixContext";
 
 import "../Table/styles.css";
-import getClosestCells from "../../utils/getClosestCells";
 
 const Table: FC = () => {
   const { matrix, setMatrix } = useContext(MatrixContext);
@@ -53,33 +54,42 @@ const Table: FC = () => {
         <></>
       ) : (
         <tbody>
-          {matrix.map((cellArray: Cell[], index: number) => (
-            <tr key={index}>
-              {`Cell Value M = ${index + 1}`}
-              <>
-                {cellArray.map((tableCell: Cell) => (
-                  <th
-                    style={{
-                      backgroundColor: getClosestCells(
-                        matrix,
-                        hoveredCell,
-                        X
-                      ).some((closestCell) => closestCell.id === tableCell.id)
-                        ? "yellow"
-                        : "white",
-                    }}
-                    key={tableCell.id}
-                    onClick={() => incrementCell(tableCell.id)}
-                    onMouseOver={() => handleMouseOver(tableCell)}
-                    onMouseOut={handleMouseOut}
-                  >
-                    {tableCell.amount}
-                  </th>
-                ))}
-              </>
-              <th>{calculateSumOfCell(cellArray)}</th>
-            </tr>
-          ))}
+          {matrix.map((cellArray: Cell[], index: number) => {
+            const rowSum = calculateSumOfCell(cellArray);
+
+            return (
+              <tr key={index}>
+                {`Cell Value M = ${index + 1}`}
+                <>
+                  {cellArray.map((tableCell: Cell) => (
+                    <th
+                      style={{
+                        backgroundColor: getClosestCells(
+                          matrix,
+                          hoveredCell,
+                          X
+                        ).some((closestCell) => closestCell.id === tableCell.id)
+                          ? "yellow"
+                          : "white",
+                      }}
+                      key={tableCell.id}
+                      onClick={() => incrementCell(tableCell.id)}
+                      onMouseOver={() => handleMouseOver(tableCell)}
+                      onMouseOut={handleMouseOut}
+                    >
+                      {hoveredCell && hoveredCell.id === tableCell.id
+                        ? `${tableCell.amount} -> ${getPercent(
+                            tableCell.amount,
+                            rowSum
+                          )}`
+                        : tableCell.amount}
+                    </th>
+                  ))}
+                </>
+                <th>{rowSum}</th>
+              </tr>
+            );
+          })}
         </tbody>
       )}
       <tfoot>
