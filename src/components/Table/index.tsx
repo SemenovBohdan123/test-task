@@ -39,14 +39,41 @@ const Table: FC = () => {
     setMatrix(copyMatrix);
   };
 
+  const onDeleteRow = (index: number) => {
+    const copyMatrix = [...matrix];
+
+    copyMatrix.splice(index, 1);
+
+    setMatrix(copyMatrix);
+  };
+
+  const onCreateRow = () => {
+    const copyMatrix = [...matrix];
+
+    let cellId = 1;
+
+    const row = [];
+    for (let j = 0; j < matrix[0].length; j++) {
+      const cell = {
+        id: cellId,
+        amount: Math.floor(Math.random() * 101),
+      };
+      row.push(cell);
+      cellId++;
+    }
+    copyMatrix.push(row);
+
+    setMatrix(copyMatrix);
+  };
+
   return (
     <div className="container">
       <table className="table">
         <thead className="table-head">
           <tr>
             <th>Cell values N = 0</th>
-            {matrix[0].map((item) => (
-              <th key={item.id}>Cell values N ={item.id}</th>
+            {matrix[0].map((item: Cell, index: number) => (
+              <th key={item.id}>Cell values N = {index + 1}</th>
             ))}
             <th>Sum values</th>
           </tr>
@@ -61,6 +88,7 @@ const Table: FC = () => {
               return (
                 <tr key={index}>
                   {`Cell Value M = ${index + 1}`}
+                  <button onClick={() => onDeleteRow(index)}> x </button>
                   <>
                     {cellArray.map((tableCell: Cell) => (
                       <th
@@ -101,6 +129,12 @@ const Table: FC = () => {
             {averageColumnValuesCalculate.map((item: number, index: number) => (
               <th key={index}>{item}</th>
             ))}
+            <th></th>
+          </tr>
+          <tr>
+            <th>
+              Create row <button onClick={onCreateRow}>+</button>
+            </th>
           </tr>
         </tfoot>
       </table>

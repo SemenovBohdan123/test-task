@@ -1,6 +1,8 @@
 .container {
   width: 95%;
   overflow: auto;
+  border-radius: 10px;
+  margin-bottom: 100px;
 }
 
 .table {
