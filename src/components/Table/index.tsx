@@ -50,12 +50,15 @@ const Table: FC = () => {
   const onCreateRow = () => {
     const copyMatrix = [...matrix];
 
-    let cellId = 1;
+    const lastElement =
+      matrix[matrix.length - 1][matrix[matrix.length - 1].length - 1];
+
+    let cellId = lastElement.id;
 
     const row = [];
     for (let j = 0; j < matrix[0].length; j++) {
       const cell = {
-        id: cellId,
+        id: ++cellId,
         amount: Math.floor(Math.random() * 101),
       };
       row.push(cell);
@@ -65,6 +68,8 @@ const Table: FC = () => {
 
     setMatrix(copyMatrix);
   };
+
+  console.log(matrix);
 
   return (
     <div className="container">
