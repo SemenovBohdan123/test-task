@@ -1,7 +1,16 @@
 import { FC } from "react";
 
-const TableCell: FC = () => {
-  return <td className="table__cell"></td>;
+interface TableCellProps
+  extends Omit<
+    React.DetailedHTMLProps<
+      React.ThHTMLAttributes<HTMLTableHeaderCellElement>,
+      HTMLTableHeaderCellElement
+    >,
+    "type"
+  > {}
+
+const TableCell: FC<TableCellProps> = ({ children }) => {
+  return <td className="table__cell">{children}</td>;
 };
 
 export default TableCell;

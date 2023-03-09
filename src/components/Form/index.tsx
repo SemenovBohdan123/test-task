@@ -3,7 +3,7 @@ import { FC, useContext } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import MatrixContext from "../../context/MatrixContext";
-import createMatrix from "../../utils/CreateMatrix";
+import createMatrix from "../../utils/сreateMatrix";
 
 import "../Form/styles.css";
 

@@ -8,7 +8,7 @@ import MatrixContext from "./context/MatrixContext";
 import "./App.css";
 
 const App: FC = () => {
-  const [matrix, setMatrix] = useState<Cell[][]>([]);
+  const [matrix, setMatrix] = useState<Cell[][]>([[{ id: 1, amount: 1 }]]);
 
   console.log(matrix);
   return (

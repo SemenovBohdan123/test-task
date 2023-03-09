@@ -1,4 +1,35 @@
 .table {
-  width: auto;
-  height: auto;
+  width: 95%;
+  border-collapse: collapse;
+  background-color: white;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.table th,
+.table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.table th {
+  font-weight: 600;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #2196f3;
+}
+
+.table tbody tr {
+  padding: 12px 15px;
+}
+
+.table-head {
+  background-color: #2196f3;
+  color: white;
+}
+
+.table-head th {
+  border: none;
+  padding: 16px;
 }
