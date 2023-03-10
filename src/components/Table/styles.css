@@ -40,9 +40,9 @@
   color: #fff;
   border: none;
   border-radius: 5px;
-  padding: 10px 15px;
   font-size: 16px;
   cursor: pointer;
+  margin: 10px;
 }
 
 .table tbody th {

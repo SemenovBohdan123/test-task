@@ -23,35 +23,37 @@ const Form: FC = () => {
   };
 
   return (
-    <form className="form" onSubmit={handleSubmit(onSubmit)}>
-      <label>
-        Adds N number
-        <input
-          className="input-field"
-          type="number"
-          {...register("n", { required: true, maxLength: 100, minLength: 0 })}
-        />
-      </label>
-      <label>
-        Adds M number
-        <input
-          className="input-field"
-          type="number"
-          {...register("m", { required: true, maxLength: 100, minLength: 0 })}
-        />
-      </label>
-      <label>
-        Adds X number
-        <input
-          className="input-field"
-          type="number"
-          {...register("x", { required: true })}
-        />
-      </label>
-      <button className="submit-button" type="submit">
-        Generate table
-      </button>
-    </form>
+    <div className="form_container">
+      <form className="form" onSubmit={handleSubmit(onSubmit)}>
+        <label>
+          Adds N number
+          <input
+            className="input-field"
+            type="number"
+            {...register("n", { required: true, maxLength: 100, minLength: 0 })}
+          />
+        </label>
+        <label>
+          Adds M number
+          <input
+            className="input-field"
+            type="number"
+            {...register("m", { required: true, maxLength: 100, minLength: 0 })}
+          />
+        </label>
+        <label>
+          Adds X number
+          <input
+            className="input-field"
+            type="number"
+            {...register("x", { required: true })}
+          />
+        </label>
+        <button className="submit-button" type="submit">
+          Generate table
+        </button>
+      </form>
+    </div>
   );
 };
 
