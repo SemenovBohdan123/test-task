@@ -78,7 +78,7 @@ tfoot th:last-child {
   padding: 10px 20px;
   background-color: white;
   position: fixed;
-  bottom: 32px;
+  bottom: 14px;
   z-index: 1;
   border: 1px solid #ddd;
   border-radius: 5px;
