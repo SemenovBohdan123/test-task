@@ -15,7 +15,7 @@ const App: FC = () => {
     <MatrixContext.Provider value={{ matrix, setMatrix }}>
       <div className="main">
         <Form />
-        <Table />
+        {matrix.length !== 0 ? <Table /> : <>Enter data for generate table</>}
       </div>
     </MatrixContext.Provider>
   );

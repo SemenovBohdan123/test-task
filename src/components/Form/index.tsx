@@ -3,7 +3,7 @@ import { FC, useContext } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import MatrixContext from "../../context/MatrixContext";
-import createMatrix from "../../utils/CreateMatrix";
+import createMatrix from "../../utils/сreateMatrix";
 
 import "../Form/styles.css";
 
@@ -23,35 +23,37 @@ const Form: FC = () => {
   };
 
   return (
-    <form className="form" onSubmit={handleSubmit(onSubmit)}>
-      <label>
-        Adds N number
-        <input
-          className="input-field"
-          type="number"
-          {...register("n", { required: true, maxLength: 100, minLength: 0 })}
-        />
-      </label>
-      <label>
-        Adds M number
-        <input
-          className="input-field"
-          type="number"
-          {...register("m", { required: true, maxLength: 100, minLength: 0 })}
-        />
-      </label>
-      <label>
-        Adds X number
-        <input
-          className="input-field"
-          type="number"
-          {...register("x", { required: true })}
-        />
-      </label>
-      <button className="submit-button" type="submit">
-        Generate table
-      </button>
-    </form>
+    <div className="form_container">
+      <form className="form" onSubmit={handleSubmit(onSubmit)}>
+        <label>
+          Adds N number
+          <input
+            className="input-field"
+            type="number"
+            {...register("n", { required: true, maxLength: 100, minLength: 0 })}
+          />
+        </label>
+        <label>
+          Adds M number
+          <input
+            className="input-field"
+            type="number"
+            {...register("m", { required: true, maxLength: 100, minLength: 0 })}
+          />
+        </label>
+        <label>
+          Adds X number
+          <input
+            className="input-field"
+            type="number"
+            {...register("x", { required: true })}
+          />
+        </label>
+        <button className="submit-button" type="submit">
+          Generate table
+        </button>
+      </form>
+    </div>
   );
 };
 
