@@ -8,14 +8,14 @@ import MatrixContext from "./context/MatrixContext";
 import "./App.css";
 
 const App: FC = () => {
-  const [matrix, setMatrix] = useState<Cell[][]>([[{ id: 1, amount: 1 }]]);
+  const [matrix, setMatrix] = useState<Cell[][]>([]);
 
   console.log(matrix);
   return (
     <MatrixContext.Provider value={{ matrix, setMatrix }}>
       <div className="main">
         <Form />
-        <Table />
+        {matrix.length !== 0 ? <Table /> : <>Enter data for generate table</>}
       </div>
     </MatrixContext.Provider>
   );

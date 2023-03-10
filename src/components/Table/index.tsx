@@ -69,8 +69,6 @@ const Table: FC = () => {
     setMatrix(copyMatrix);
   };
 
-  console.log(matrix);
-
   return (
     <div className="container">
       <table className="table">
@@ -83,9 +81,7 @@ const Table: FC = () => {
             <th>Sum values</th>
           </tr>
         </thead>
-        {matrix.length === 0 ? (
-          <></>
-        ) : (
+        {
           <tbody>
             {matrix.map((cellArray: Cell[], index: number) => {
               const rowSum = calculateSumOfCell(cellArray);
@@ -93,7 +89,13 @@ const Table: FC = () => {
               return (
                 <tr key={index}>
                   {`Cell Value M = ${index + 1}`}
-                  <button onClick={() => onDeleteRow(index)}> x </button>
+                  <button
+                    className="delete_button"
+                    onClick={() => onDeleteRow(index)}
+                  >
+                    {" "}
+                    x{" "}
+                  </button>
                   <>
                     {cellArray.map((tableCell: Cell) => (
                       <th
@@ -127,7 +129,7 @@ const Table: FC = () => {
               );
             })}
           </tbody>
-        )}
+        }
         <tfoot style={{}}>
           <tr>
             <th>Avarage value</th>
@@ -137,7 +139,7 @@ const Table: FC = () => {
             <th></th>
           </tr>
           <tr>
-            <th>
+            <th className="create-row">
               Create row <button onClick={onCreateRow}>+</button>
             </th>
           </tr>

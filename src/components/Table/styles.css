@@ -3,6 +3,7 @@
   overflow: auto;
   border-radius: 10px;
   margin-bottom: 100px;
+  min-height: 491px;
 }
 
 .table {
@@ -10,15 +11,15 @@
   border-collapse: collapse;
   background-color: white;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+  position: relative;
 }
 
 .table th,
 .table td {
-  min-width: 100px;
-  font-size: 15px;
-  padding: 12px 15px;
+  padding: 12px;
   text-align: center;
-  border-bottom: 1px solid #ddd;
+  border: 2px solid #ddd;
+  min-width: 100px;
 }
 
 .table th {
@@ -26,10 +27,22 @@
 }
 
 .table tbody tr {
+  border: 2px solid #ddd;
   min-width: 200px;
   font-size: 15px;
   text-align: center;
   padding: 12px 15px;
+}
+
+.delete_button {
+  margin: 10px 0px;
+  background-color: #3897f0;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
 }
 
 .table tbody th {
@@ -47,6 +60,37 @@
   padding: 16px;
 }
 
-.table tfoot {
-  /* position: fixed; */
+tfoot th {
+  border-top: 1px solid #ddd;
+}
+
+tfoot th:first-child {
+  padding-left: 20px;
+}
+
+tfoot th:last-child {
+  padding-right: 20px;
+}
+
+.create-row {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: white;
+  position: fixed;
+  bottom: 32px;
+  z-index: 1;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.create-row button {
+  background-color: #3897f0;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: 10px;
 }
