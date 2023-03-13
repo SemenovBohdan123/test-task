@@ -8,22 +8,26 @@ import getClosestCells from "../../utils/getClosestCells";
 import MatrixContext from "../../context/MatrixContext";
 
 import "../Table/styles.css";
+import XContext from "../../context/XContext";
 
 const Table: FC = () => {
   const { matrix, setMatrix } = useContext(MatrixContext);
+  const { X, setX } = useContext(XContext);
 
-  const [hoveredCell, setHoveredCell] = useState<Cell | null>(null);
+  const [closestCellArray, setClosestCellArray] = useState<Cell[]>([]);
+
+  const [hoverSum, setHoverSum] = useState<any>(null);
 
   const averageColumnValuesCalculate: number[] = averageColumnValues(matrix);
 
-  const X = 7;
-
   const handleMouseOver = (cell: Cell) => {
-    setHoveredCell(cell);
+    const closestCell = getClosestCells(matrix, cell, X);
+
+    setClosestCellArray(closestCell);
   };
 
   const handleMouseOut = () => {
-    setHoveredCell(null);
+    setClosestCellArray([]);
   };
 
   const incrementCell = (idToFind: number) => {
@@ -69,6 +73,26 @@ const Table: FC = () => {
     setMatrix(copyMatrix);
   };
 
+  const getBackgroundCell = (id: number) => {
+    const findCell = closestCellArray.find((item) => item.id === id);
+
+    const color = findCell ? "yellow" : "white";
+
+    return color;
+  };
+
+  const getBackgroundCellForSum = (id: number, percent: string) => {
+    const tableCell = matrix[hoverSum.rowIndex].find((item) => item.id === id);
+
+    if (tableCell) {
+      const gradient = `linear-gradient(to bottom, #2196f3 ${percent}, #fff ${percent})`;
+
+      return gradient;
+    }
+
+    return "white";
+  };
+
   return (
     <div className="container">
       <table className="table">
@@ -83,39 +107,35 @@ const Table: FC = () => {
         </thead>
         {
           <tbody>
-            {matrix.map((cellArray: Cell[], index: number) => {
+            {matrix.map((cellArray: Cell[], rowIndex: number) => {
               const rowSum = calculateSumOfCell(cellArray);
 
               return (
-                <tr key={index}>
-                  {`Cell Value M = ${index + 1}`}
+                <tr key={rowIndex}>
+                  {`Cell Value M = ${rowIndex + 1}`}
                   <button
                     className="delete_button"
-                    onClick={() => onDeleteRow(index)}
+                    onClick={() => onDeleteRow(rowIndex)}
                   >
-                    {" "}
-                    x{" "}
+                    x
                   </button>
                   <>
                     {cellArray.map((tableCell: Cell) => (
                       <th
                         style={{
-                          backgroundColor: getClosestCells(
-                            matrix,
-                            hoveredCell,
-                            X
-                          ).some(
-                            (closestCell) => closestCell.id === tableCell.id
-                          )
-                            ? "yellow"
-                            : "white",
+                          background: hoverSum
+                            ? getBackgroundCellForSum(
+                                tableCell.id,
+                                getPercent(tableCell.amount, rowSum)
+                              )
+                            : getBackgroundCell(tableCell.id),
                         }}
                         key={tableCell.id}
                         onClick={() => incrementCell(tableCell.id)}
                         onMouseOver={() => handleMouseOver(tableCell)}
                         onMouseOut={handleMouseOut}
                       >
-                        {hoveredCell && hoveredCell.id === tableCell.id
+                        {hoverSum?.rowIndex === rowIndex
                           ? `${tableCell.amount} -> ${getPercent(
                               tableCell.amount,
                               rowSum
@@ -124,13 +144,18 @@ const Table: FC = () => {
                       </th>
                     ))}
                   </>
-                  <th>{rowSum}</th>
+                  <th
+                    onMouseOut={() => setHoverSum(null)}
+                    onMouseOver={() => setHoverSum({ rowIndex, rowSum })}
+                  >
+                    {rowSum}
+                  </th>
                 </tr>
               );
             })}
           </tbody>
         }
-        <tfoot style={{}}>
+        <tfoot>
           <tr>
             <th>Avarage value</th>
             {averageColumnValuesCalculate.map((item: number, index: number) => (
