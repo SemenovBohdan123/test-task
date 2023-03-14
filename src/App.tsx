@@ -12,7 +12,6 @@ const App: FC = () => {
   const [matrix, setMatrix] = useState<Cell[][]>([]);
   const [X, setX] = useState<number>(0);
 
-  console.log(matrix);
   return (
     <MatrixContext.Provider value={{ matrix, setMatrix }}>
       <XContext.Provider value={{ X, setX }}>
