@@ -112,13 +112,15 @@ const Table: FC = () => {
 
               return (
                 <tr key={rowIndex}>
-                  {`Cell Value M = ${rowIndex + 1}`}
-                  <button
-                    className="delete_button"
-                    onClick={() => onDeleteRow(rowIndex)}
-                  >
-                    x
-                  </button>
+                  <th>
+                    {`Cell Value M = ${rowIndex + 1}`}
+                    <button
+                      className="delete_button"
+                      onClick={() => onDeleteRow(rowIndex)}
+                    >
+                      x
+                    </button>
+                  </th>
                   <>
                     {cellArray.map((tableCell: Cell) => (
                       <th
