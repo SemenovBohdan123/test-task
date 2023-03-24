@@ -1,6 +1,6 @@
 const getClosestCells = (
-  matrix: Cell[][],
-  hoveredCell: Cell | null,
+  matrix: ICell[][],
+  hoveredCell: ICell | null,
   X: number
 ) => {
   if (!hoveredCell) {
@@ -9,7 +9,7 @@ const getClosestCells = (
 
   const hoveredAmount = hoveredCell.amount;
 
-  const differences: any[] = [];
+  const differences: IDifferencesCell[] = [];
 
   matrix.flat().forEach((item) => {
     if (item.id < hoveredCell.id) {

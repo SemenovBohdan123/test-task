@@ -14,13 +14,13 @@ const Table: FC = () => {
   const { matrix, setMatrix } = useContext(MatrixContext);
   const { X, setX } = useContext(XContext);
 
-  const [closestCellArray, setClosestCellArray] = useState<Cell[]>([]);
+  const [closestCellArray, setClosestCellArray] = useState<ICell[]>([]);
 
-  const [hoverSum, setHoverSum] = useState<any>(null);
+  const [hoverSum, setHoverSum] = useState<IHoverSum | null>(null);
 
   const averageColumnValuesCalculate: number[] = averageColumnValues(matrix);
 
-  const handleMouseOver = (cell: Cell) => {
+  const handleMouseOver = (cell: ICell) => {
     const closestCell = getClosestCells(matrix, cell, X);
 
     setClosestCellArray(closestCell);
@@ -63,7 +63,7 @@ const Table: FC = () => {
     for (let j = 0; j < matrix[0].length; j++) {
       const cell = {
         id: ++cellId,
-        amount: Math.floor(Math.random() * 101),
+        amount: Math.floor(Math.random() * 201),
       };
       row.push(cell);
       cellId++;
@@ -82,6 +82,10 @@ const Table: FC = () => {
   };
 
   const getBackgroundCellForSum = (id: number, percent: string) => {
+    if (!hoverSum) {
+      return;
+    }
+
     const tableCell = matrix[hoverSum.rowIndex].find((item) => item.id === id);
 
     if (tableCell) {
@@ -99,7 +103,7 @@ const Table: FC = () => {
         <thead className="table-head">
           <tr>
             <th>Cell values N = 0</th>
-            {matrix[0].map((item: Cell, index: number) => (
+            {matrix[0].map((item: ICell, index: number) => (
               <th key={item.id}>Cell values N = {index + 1}</th>
             ))}
             <th>Sum values</th>
@@ -107,7 +111,7 @@ const Table: FC = () => {
         </thead>
         {
           <tbody>
-            {matrix.map((cellArray: Cell[], rowIndex: number) => {
+            {matrix.map((cellArray: ICell[], rowIndex: number) => {
               const rowSum = calculateSumOfCell(cellArray);
 
               return (
@@ -122,7 +126,7 @@ const Table: FC = () => {
                     </button>
                   </th>
                   <>
-                    {cellArray.map((tableCell: Cell) => (
+                    {cellArray.map((tableCell: ICell) => (
                       <th
                         style={{
                           background: hoverSum

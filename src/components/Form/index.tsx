@@ -19,9 +19,9 @@ const Form: FC = () => {
     register,
     handleSubmit,
     // formState: { errors },
-  } = useForm<Inputs>();
+  } = useForm<IInputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = ({ n, m, x }) => {
+  const onSubmit: SubmitHandler<IInputs> = ({ n, m, x }) => {
     if (n > 100 || n < 0 || m > 100 || m < 0 || x < 0 || x > Math.min(n, m)) {
       setError(true);
       return;

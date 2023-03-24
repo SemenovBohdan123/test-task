@@ -7,12 +7,22 @@ interface IXContext {
   setX: (matrix: number) => void;
 }
 
-interface Cell {
+interface ICell {
   id: number;
   amount: number;
 }
+interface IDifferencesCell {
+  id: number;
+  amount: number;
+  difference: number;
+}
 
-interface Inputs {
+interface IHoverSum {
+  rowIndex: number;
+  rowSum: number;
+}
+
+interface IInputs {
   n: number;
   m: number;
   x: number;
