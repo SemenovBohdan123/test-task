@@ -1,6 +1,6 @@
 const getClosestCells = (
-  matrix: Cell[][],
-  hoveredCell: Cell | null,
+  matrix: ICell[][],
+  hoveredCell: ICell | null,
   X: number
 ) => {
   if (!hoveredCell) {
@@ -8,17 +8,26 @@ const getClosestCells = (
   }
 
   const hoveredAmount = hoveredCell.amount;
+  const matrixSize = matrix.length;
 
-  const differences: any[] = [];
+  const rowIndex = matrix.findIndex((row) => row.includes(hoveredCell));
+  const colIndex = matrix[rowIndex].indexOf(hoveredCell);
 
-  matrix.flat().forEach((item) => {
-    if (item.id < hoveredCell.id) {
-      return;
-    }
+  const startRow = Math.max(rowIndex - 3, 0);
+  const endRow = Math.min(rowIndex + 3, matrixSize - 1);
+  const startCol = Math.max(colIndex - 3, 0);
+  const endCol = Math.min(colIndex + 3, matrixSize - 1);
 
-    differences.push({
-      ...item,
-      difference: Math.abs(item.amount - hoveredAmount),
+  const differences: IDifferencesCell[] = [];
+
+  matrix.forEach((row, i) => {
+    if (i < startRow || i > endRow) return;
+    row.forEach((item, j) => {
+      if (j < startCol || j > endCol || item.id < hoveredCell.id) return;
+      differences.push({
+        ...item,
+        difference: Math.abs(item.amount - hoveredAmount),
+      });
     });
   });
 

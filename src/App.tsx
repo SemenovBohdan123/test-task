@@ -9,7 +9,7 @@ import XContext from "./context/XContext";
 import "./App.css";
 
 const App: FC = () => {
-  const [matrix, setMatrix] = useState<Cell[][]>([]);
+  const [matrix, setMatrix] = useState<ICell[][]>([]);
   const [X, setX] = useState<number>(0);
 
   return (

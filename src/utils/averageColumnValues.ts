@@ -1,4 +1,4 @@
-const averageColumnValues = (matrix: Array<Array<Cell>>): Array<number> => {
+const averageColumnValues = (matrix: Array<Array<ICell>>): Array<number> => {
   const numColumns = matrix[0].length;
   const numRows = matrix.length;
   const columnSums = new Array<number>(numColumns).fill(0);
